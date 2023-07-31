@@ -1,0 +1,3 @@
+Id,DepartureCountry,DestinationCountry,DepartureAirport,ArrivalAirport,DepartureDate,Class,Price
+FL001,United States,United Kingdom,"John F. Kennedy International Airport (JFK), New York, USA","London Heathrow Airport (LHR), London, UK",2023-08-15,Economy,350.75
+FL002,France,Japan,"Charles de Gaulle Airport (CDG), Paris, France","Haneda Airport (HND), Tokyo, Japan",2023-09-10,Business,1200
