@@ -9,7 +9,17 @@ namespace Airport_Ticket_Booking
 {
     public class Booking
     {
-        public int Id { get; set; }
+        private static int LastId;
+        private int id;
+
+        public Booking()
+        {
+            id = ++LastId;
+        }
+        public int Id
+        {
+            get => id;
+        }
         public Flight flight { get; set; }
         public string PassengerName { get; set; }
         public FlightClass FClass { get; set; } // I am not sure if I should add it or not

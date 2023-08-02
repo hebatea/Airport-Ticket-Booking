@@ -12,8 +12,8 @@ namespace Airport_Ticket_Booking
         {
             Console.WriteLine("**************************************************");
             Console.WriteLine("****** Welcome to Airport Ticket Booking *********");
-            Console.WriteLine("****** If you are Passenger please press 1 *******");
-            Console.WriteLine("****** If your are Manager please press 2 ********");
+            Console.WriteLine("******* 1 -> If you are Passenger please *********");
+            Console.WriteLine("******* 2 -> If your are Manager please  *********");
             Console.WriteLine("**************************************************");
 
             string userInput = Console.ReadLine();
@@ -27,8 +27,8 @@ namespace Airport_Ticket_Booking
             var flag = true;
             if(number == 1)
             {
-                Passenger pass = new Passenger();
-                pass.PassengerMain();
+                Passenger passenger = new Passenger();
+                passenger.PassengerMain();
 
             }
             else

@@ -15,31 +15,73 @@ namespace Airport_Ticket_Booking
             FirstClass
         }
 
-        public static List<string[]> ReadFromCSV(string FilePath) 
+        public enum IntOrDouble
         {
-            if (!File.Exists(FilePath))
-            {
-                throw new FileNotFoundException("The file was not found.", FilePath);
-            }
-
-            List<string[]> csvData = new List<string[]>();
-
-            
-            using (StreamReader Reader = new StreamReader(FilePath))
-            {
-                while (!Reader.EndOfStream)
-                {
-                    string Line = Reader.ReadLine();
-                    string[] Fields = Line.Split(',');
-
-                    csvData.Add(Fields);
-
-                }
-            }
-
-            return csvData;
-
+            integern = 0,
+            doublen = 1
         }
+
+        public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)
+        {
+            double Output;
+            int IntOutput;
+            bool isVaild = false;
+            do
+            {
+                switch (IsIntOrDouble)
+                {
+                    case (int)IntOrDouble.integern:
+
+                        string userInput = Console.ReadLine();
+                        if (int.TryParse(userInput, out IntOutput))
+                        {
+                            isVaild = IsInRange(IntOutput, StartRange, EndRange);
+                            if(isVaild)
+                                return IntOutput;
+                            else
+                            {
+                                Console.WriteLine($"Please Enter Value between {StartRange} and {EndRange}");
+                            }
+                                                        
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input! Please enter a valid integer value.");
+                        }
+
+                        
+                        break;
+
+                    case (int)IntOrDouble.doublen:
+                        userInput = Console.ReadLine();
+                        if (double.TryParse(userInput, out Output))
+                        {
+                            isVaild = true;
+                            return Output;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input! Please enter a valid double value.");
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            } while (!isVaild);
+            return -1;
+        }
+
+        private static bool IsInRange(int input, int? StartRange = null, int? EndRange = null)
+        {
+            if (StartRange == null) return true;
+            if (StartRange != null && EndRange != null)
+            {
+                if (input >= StartRange && input <= EndRange) return true;
+            }
+            return false;
+        }
+        
 
     }
 }

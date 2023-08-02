@@ -45,7 +45,8 @@
   <ItemGroup>
     <Compile Include="Booking.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="DealingWithFlights.cs" />
+    <Compile Include="CSVManager.cs" />
+    <Compile Include="FlightsManager.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="Passenger.cs" />
     <Compile Include="Program.cs" />
