@@ -21,7 +21,19 @@ namespace Airport_Ticket_Booking
             doublen = 1
         }
 
-        public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)
+        public enum SearchBasedOn
+        {
+            All = 1,
+            DepartureCountry = 2,
+            DestinationCountry = 3,
+            DepartureAirport = 4,
+            ArrivalAirport = 5,
+            DepartureDate = 6,
+            FlightClass = 7,
+            MaxPrice = 8
+        }
+
+    public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)
         {
             double Output;
             int IntOutput;
@@ -81,7 +93,23 @@ namespace Airport_Ticket_Booking
             }
             return false;
         }
-        
 
+        internal static List<int> TakeTheListFromUser()
+        {
+            string UserInput = Console.ReadLine();
+            List<int> OutputList = new List<int>();
+            foreach (string input in UserInput.Split(','))
+            {
+                if (int.TryParse(input.Trim(), out int IntOutput))
+                {
+                    OutputList.Add(IntOutput);
+                }
+                else
+                {
+                    Console.WriteLine($"I can not Parse this Number{input}");
+                }
+            }
+            return OutputList;
+        }
     }
 }

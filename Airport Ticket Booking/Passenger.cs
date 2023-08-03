@@ -49,7 +49,7 @@ namespace Airport_Ticket_Booking
                         BookAskInput();
                         break;
                     case (int) PassengerOptions.Show:
-                        FlightsManager.SearchFlights();
+                        ShowFlightsAskInput();
                         break;
                     case (int) PassengerOptions.Modify:
                         ModifyAskInput();
@@ -68,6 +68,89 @@ namespace Airport_Ticket_Booking
                 }
 
             }
+        }
+
+        private void ShowFlightsAskInput()
+        {
+            Console.WriteLine("What You Want to Search Based On?");
+            Console.WriteLine("1. Show me All the Flights");
+            Console.WriteLine("2. Departure Country");
+            Console.WriteLine("3. Destination Country");
+            Console.WriteLine("4. Departure Airport");
+            Console.WriteLine("5. Arrival Airport");
+            Console.WriteLine("6. Departure Date");
+            Console.WriteLine("7. Class");
+            Console.WriteLine("8. Price\n");
+
+
+            Console.WriteLine("Please Enter The Values Of Numbers That you Want to Search Based On It Separeted with Comma");
+            Console.WriteLine("Like 1, 2, 5, etc");
+
+            List<int> OptionList = TakeTheListFromUser();
+            if(OptionList.Count > 0)
+            {
+                string DepartureCountry = null;
+                string DestinationCountry = null;
+                string DepartureAirport = null;
+                string ArrivalAirport = null;
+                DateTime? DepartureDate = null;
+                FlightClass? FlightClass = null;
+                double? MaxPrice = null;
+
+
+                foreach (var option in OptionList)
+                {
+                    switch (option)
+                    {
+                        case (int) SearchBasedOn.All:
+                            FlightsManager.showFlights(FlightsManager.SearchFlights());
+                            return;
+                        case (int)SearchBasedOn.DepartureCountry:
+                            Console.WriteLine("Please Enter The Departure Country");
+                            DepartureCountry = Console.ReadLine();
+                            break;
+                        case (int)SearchBasedOn.DestinationCountry:
+                            Console.WriteLine("Please Enter The Destination Country");
+                            DestinationCountry = Console.ReadLine();
+                            break;
+                        case (int)SearchBasedOn.DepartureAirport:
+                            Console.WriteLine("Please Enter The Departure Airport");
+                            DepartureAirport = Console.ReadLine();
+                            break;
+                        case (int)SearchBasedOn.ArrivalAirport:
+                            Console.WriteLine("Please Enter The Arrival Airport");
+                            ArrivalAirport = Console.ReadLine();
+                            break;
+                        case (int)SearchBasedOn.DepartureDate:
+                            Console.WriteLine("Please Enter the Day:");
+                            int Day = (int)UserInput((int)IntOrDouble.integern);
+                            int Month = (int)UserInput((int)IntOrDouble.integern);
+                            int Year = (int)UserInput((int)IntOrDouble.integern);
+                            DepartureDate = new DateTime(Year, Month, Day);
+                            break;
+                        case (int)SearchBasedOn.FlightClass:
+                            Console.WriteLine("Please Enter the New Class:");
+                            Console.WriteLine("1 : Economy");
+                            Console.WriteLine("2 : Business");
+                            Console.WriteLine("3 : FirstClass");
+                            FlightClass = (FlightClass) UserInput((int)IntOrDouble.integern, 1, 3);
+                            break;
+                        case (int)SearchBasedOn.MaxPrice:
+                            Console.WriteLine("Please Enter The Max Price That You Do not Want to Exceed:");
+                            MaxPrice = UserInput((int)IntOrDouble.doublen);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                List<Flight> FilterFlights = FlightsManager.SearchFlights(DepartureCountry, DestinationCountry, DepartureAirport, ArrivalAirport, DepartureDate, FlightClass, MaxPrice);
+                FlightsManager.showFlights(FilterFlights);
+            }
+            else
+            {
+                Console.WriteLine("The Input Is Not Contains Any Options");
+            }
+
         }
 
         private void CancelAskInput()

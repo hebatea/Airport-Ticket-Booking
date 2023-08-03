@@ -94,32 +94,36 @@ namespace Airport_Ticket_Booking
             var query = Flights.AsQueryable();
 
             if (!string.IsNullOrEmpty(DepartureCountry))
-                query.Where(f => f.DepartureCountry.Equals(DepartureCountry, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(f => f.DepartureCountry.Equals(DepartureCountry, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrEmpty(DestinationCountry))
-                query.Where(f => f.DestinationCountry.Equals(DestinationCountry, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(f => f.DestinationCountry.Equals(DestinationCountry, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrEmpty(DepartureAirport))
-                query.Where(f => f.DepartureAirport.Equals(DepartureAirport, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(f => f.DepartureAirport.Equals(DepartureAirport, StringComparison.OrdinalIgnoreCase));
 
             if (!string.IsNullOrEmpty(ArrivalAirport))
-                query.Where(f => f.ArrivalAirport.Equals(ArrivalAirport, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(f => f.ArrivalAirport.Equals(ArrivalAirport, StringComparison.OrdinalIgnoreCase));
 
             if (DepartureDate != null)
-                query.Where(f => f.DepartureDate.Equals(DepartureDate));
+                query = query.Where(f => f.DepartureDate.Equals(DepartureDate));
 
             if (FlightClass != null)
-                query.Where(f => f.FClass.Equals(FlightClass));
+                query = query.Where(f => f.FClass.Equals(FlightClass));
 
             if (MaxPrice != null)
-                query.Where(f => f.Price <= MaxPrice);
+                query = query.Where(f => f.Price <= MaxPrice);
             
-            showFlights(query.ToList());
             return query.ToList();
         }
 
         public void showFlights(List<Flight> QueryFlights)
         {
+            if(QueryFlights.Count == 0)
+            {
+                Console.WriteLine("There is Nothing Matched Your Criterias!");
+            }
+           
             foreach(var flight in QueryFlights)
             {
                 Console.WriteLine(flight);
