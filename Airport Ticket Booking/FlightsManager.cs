@@ -150,8 +150,9 @@ namespace Airport_Ticket_Booking
 
         public List<Booking> ShowBooking(string PassengerName)
         {
+            List<Booking> BookingsBasedOnName = Bookings.Where(b => b.PassengerName == PassengerName).ToList();
 
-            return Bookings;
+            return BookingsBasedOnName;
         }
 
 
