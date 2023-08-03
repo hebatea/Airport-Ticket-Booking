@@ -55,6 +55,7 @@ namespace Airport_Ticket_Booking
                         ModifyAskInput();
                         break;
                     case (int) PassengerOptions.Cancel:
+                        CancelAskInput();
                         break;
                     case (int) PassengerOptions.View:
                         ViewAskInput();
@@ -66,6 +67,21 @@ namespace Airport_Ticket_Booking
                         break;
                 }
 
+            }
+        }
+
+        private void CancelAskInput()
+        {
+            Console.WriteLine("Please Enter The Id of the Booking you Want to Cancel: ");
+            int id = (int)UserInput((int)IntOrDouble.integern);
+            if (!FlightsManager.IsThereBookingWithThisId(id))
+            {
+                Console.WriteLine("There is no Booking with this Id!");
+            }
+            else
+            { 
+                FlightsManager.CancelBooking(id);
+                Console.WriteLine("Cancelled Successfully");
             }
         }
 

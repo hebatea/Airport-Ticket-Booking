@@ -143,9 +143,10 @@ namespace Airport_Ticket_Booking
             }
             return true;
         }
+
         public void CancelBooking(int BookingId)
         {
-
+            Bookings.RemoveAll(b => b.Id == BookingId);
         }
 
         public List<Booking> ShowBooking(string PassengerName)
