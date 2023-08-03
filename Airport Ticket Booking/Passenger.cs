@@ -49,7 +49,7 @@ namespace Airport_Ticket_Booking
                         BookAskInput();
                         break;
                     case (int) PassengerOptions.Show:
-                        
+                        FlightsManager.SearchFlights();
                         break;
                     case (int) PassengerOptions.Modify:
                         ModifyAskInput();
@@ -57,7 +57,7 @@ namespace Airport_Ticket_Booking
                     case (int) PassengerOptions.Cancel:
                         break;
                     case (int) PassengerOptions.View:
-                        FlightsManager.SearchFlights();
+                        ViewAskInput();
                         break;
                     case (int) PassengerOptions.Exit:
                         Flag = false;
@@ -66,6 +66,23 @@ namespace Airport_Ticket_Booking
                         break;
                 }
 
+            }
+        }
+
+        private void ViewAskInput()
+        {
+            Console.WriteLine("Please Enter The Name that You Booked Using It");
+            string Name = Console.ReadLine();
+            List<Booking> BookingsName = FlightsManager.ShowBooking(Name);
+            if(BookingsName == null)
+            {
+                Console.WriteLine("There is no booking assigned to this name!");
+            }
+            foreach(Booking bookedFlight in BookingsName)
+            {
+                Console.WriteLine($"Id: {bookedFlight.Id}, Passenger Name: {bookedFlight.PassengerName}, " +
+               $"Flight Calss: {bookedFlight.FClass}, Flight Information: ");
+                Console.WriteLine($"{bookedFlight.flight}");
             }
         }
 
