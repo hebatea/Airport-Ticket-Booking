@@ -9,7 +9,7 @@
     <RootNamespace>Airport_Ticket_Booking</RootNamespace>
     <AssemblyName>Airport Ticket Booking</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-	  <LangVersion>9.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -49,6 +49,7 @@
     <Compile Include="CSVManager.cs" />
     <Compile Include="FlightsManager.cs" />
     <Compile Include="Flight.cs" />
+    <Compile Include="Manager.cs" />
     <Compile Include="Passenger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
