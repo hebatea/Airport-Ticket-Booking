@@ -13,13 +13,12 @@ namespace Airport_Ticket_Booking
     {
         List<Flight> Flights;
         List<Booking> Bookings;
-        CSVManager CSVManager;
+        CSVManager CSVManager;  // For Further Improvment
 
         public FlightsManager()
         {
             Flights = new List<Flight>();
             Bookings = new List<Booking>();
-            CSVManager = new CSVManager();
             // just for test purpose
             ReadFromCSV("C:\\Users\\Heba Ashour\\source\\repos\\Airport Ticket Booking\\Airport Ticket Booking\\Flights.csv");
         }
@@ -38,7 +37,6 @@ namespace Airport_Ticket_Booking
                 FClass = FlightClass
 
             };
-            CSVManager.SaveDataToCSV(Booking);
             Bookings.Add(Booking);
         }
 
@@ -50,13 +48,45 @@ namespace Airport_Ticket_Booking
                 Flights.Single(f => f.Id == FlightId);
             }catch(Exception ex)
             {
+                Console.WriteLine("The Flight Number does not exsit");
                 return false;
             }
             return true;
         }
 
-       
-        
+        public void ModifyBooking(int option, int BookingId, string newPassName, int newflightId, int? NewClass)
+        {
+            Booking bookedFlight = Bookings.Single(b => b.Id == BookingId);
+            switch (option)
+            {
+                case 1:
+                    bookedFlight.PassengerName = newPassName;
+                    break;
+
+                case 2:
+                    if(isInFlights(newflightId))
+                        bookedFlight.flight = Flights.Single(f => f.Id == newflightId);
+                    break;
+                case 3:
+                    bookedFlight.FClass = (FlightClass) NewClass;
+                    break;
+                case 4:
+                    bookedFlight.PassengerName = newPassName;
+                    if (isInFlights(newflightId))
+                        bookedFlight.flight = Flights.Single(f => f.Id == newflightId);
+                    bookedFlight.FClass = (FlightClass) NewClass;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine("Here is the new information for the updated product:");
+            Console.WriteLine($"Id: {bookedFlight.Id}, Passenger Name: {bookedFlight.PassengerName}, " +
+                $"Flight Id: {bookedFlight.flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {bookedFlight.FClass}");
+
+        }
+
+
         public List<Flight> SearchFlights(string DepartureCountry = null, string DestinationCountry = null,
             string DepartureAirport = null, string ArrivalAirport = null, DateTime? DepartureDate = null,
             FlightClass? FlightClass = null, double? MaxPrice = null)
@@ -96,11 +126,23 @@ namespace Airport_Ticket_Booking
             }
         }
 
-        public void ModifyBooking(int BookingId, FlightClass NewClass)
+      
+        public bool IsThereBookingWithThisId(int BookingId)
         {
+            try
+            {
+                Booking b = Bookings.Single(f => f.Id == BookingId);
+                Console.WriteLine("Here is the old information for the updated product:");
+                Console.WriteLine($"Id: {b.Id}, Passenger Name: {b.PassengerName}, " +
+                    $"Flight Id: {b.flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {b.FClass}");
 
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
-
         public void CancelBooking(int BookingId)
         {
 
@@ -108,6 +150,7 @@ namespace Airport_Ticket_Booking
 
         public List<Booking> ShowBooking(string PassengerName)
         {
+
             return Bookings;
         }
 
@@ -164,6 +207,9 @@ namespace Airport_Ticket_Booking
 
         }
 
-
+        internal void ModifyBooking(int id, string newPassName, int? newflightId, FlightClass? newFlightClass)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

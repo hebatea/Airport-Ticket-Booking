@@ -10,9 +10,9 @@ namespace Airport_Ticket_Booking
     public static class Common
     {
         public enum FlightClass{
-            Economy,
-            Business,
-            FirstClass
+            Economy = 1,
+            Business = 2,
+            FirstClass = 3
         }
 
         public enum IntOrDouble

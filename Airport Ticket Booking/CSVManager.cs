@@ -17,7 +17,7 @@ namespace Airport_Ticket_Booking
             FilePath = Path.Combine(currentDirectory, fileName);
         }
 
-        public void SaveDataToCSV(Booking BookedFlight)
+        public void SaveDataToCSV(List<Booking> BookedFlights)
         {
             bool fileExists = File.Exists(FilePath);
 
@@ -27,9 +27,12 @@ namespace Airport_Ticket_Booking
                 {
                     sw.WriteLine("Id,PassengerName,FlightId,FlightClass");
                 }
-                sw.WriteLine($"{BookedFlight.Id},{BookedFlight.PassengerName},{BookedFlight.flight.Code},{BookedFlight.FClass}");
+                foreach(var BookedFlight in BookedFlights)
+                    sw.WriteLine($"{BookedFlight.Id},{BookedFlight.PassengerName},{BookedFlight.flight.Code},{BookedFlight.FClass}");
             }
 
         }
+
+      
     }
 }

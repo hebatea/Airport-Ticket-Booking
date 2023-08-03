@@ -49,8 +49,10 @@ namespace Airport_Ticket_Booking
                         BookAskInput();
                         break;
                     case (int) PassengerOptions.Show:
+                        
                         break;
                     case (int) PassengerOptions.Modify:
+                        ModifyAskInput();
                         break;
                     case (int) PassengerOptions.Cancel:
                         break;
@@ -64,6 +66,64 @@ namespace Airport_Ticket_Booking
                         break;
                 }
 
+            }
+        }
+
+        private void ModifyAskInput()
+        {
+            Console.WriteLine("Please Enter The Id of the Booking that you want to modify: ");
+            int id = (int)UserInput((int)IntOrDouble.integern);
+            bool IsBooking = FlightsManager.IsThereBookingWithThisId(id);
+            if (IsBooking)
+            {
+                Console.WriteLine("Choose from the following what do you want to modify: ");
+                Console.WriteLine("1. Modify the Passenger Name");
+                Console.WriteLine("2. Modify the Flight Id");
+                Console.WriteLine("3. Modify The Class");
+                Console.WriteLine("4. Modify all");
+
+                int number = (int)UserInput((int)IntOrDouble.integern, 1, 4);
+                string newPassName = null;
+                int NewflightId = 1; // By the end the id will change it is just initial value
+                int NewFlightClass = (int) 1;
+                switch (number)
+                {
+                    case 1:
+                        Console.WriteLine("Please Enter the New Passenger Name:");
+                        newPassName = Console.ReadLine();
+                        break;
+                    case 2:
+                        Console.WriteLine("Please Enter the New Flight Id:");
+                        NewflightId = (int) UserInput((int)IntOrDouble.integern);
+                        break;
+                    case 3:
+                        Console.WriteLine("Please Enter the New Class:");
+                        Console.WriteLine("1 : Economy");
+                        Console.WriteLine("2 : Business");
+                        Console.WriteLine("3 : FirstClass");
+                        NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+                        break;
+                    case 4:
+                        Console.WriteLine("Please Enter the New Name:");
+                        newPassName = Console.ReadLine();
+
+                        Console.WriteLine("Please Enter the New Flight Id:");
+                        NewflightId = (int)UserInput((int)IntOrDouble.integern);
+
+                        Console.WriteLine("Please Enter the New Class:");
+                        Console.WriteLine("1 : Economy");
+                        Console.WriteLine("2 : Business");
+                        Console.WriteLine("3 : FirstClass");
+                        NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+                        break;
+                    default:
+                        break;
+                } // end switch
+                FlightsManager.ModifyBooking(number, id, newPassName, NewflightId, NewFlightClass);
+            }
+            else
+            {
+                Console.WriteLine("There is no Booking with this Id!");
             }
         }
 
