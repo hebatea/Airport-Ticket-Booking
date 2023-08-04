@@ -28,7 +28,7 @@ namespace Airport_Ticket_Booking
                     sw.WriteLine("Id,PassengerName,FlightId,FlightClass");
                 }
                 foreach(var BookedFlight in BookedFlights)
-                    sw.WriteLine($"{BookedFlight.Id},{BookedFlight.PassengerName},{BookedFlight.flight.Code},{BookedFlight.FClass}");
+                    sw.WriteLine($"{BookedFlight.Id},{BookedFlight.PassengerName},{BookedFlight.Flight.Code},{BookedFlight.FClass}");
             }
 
         }

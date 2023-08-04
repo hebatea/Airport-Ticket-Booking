@@ -44,7 +44,7 @@ namespace Airport_Ticket_Booking
             Booking Booking = new Booking()
             {
                 PassengerName = PassengerName,
-                flight = Flights.Single(f => f.Id == FlightId),
+                Flight = Flights.Single(f => f.Id == FlightId),
                 FClass = FlightClass
 
             };
@@ -76,7 +76,7 @@ namespace Airport_Ticket_Booking
 
                 case 2:
                     if(isInFlights(newflightId))
-                        bookedFlight.flight = Flights.Single(f => f.Id == newflightId);
+                        bookedFlight.Flight = Flights.Single(f => f.Id == newflightId);
                     break;
                 case 3:
                     bookedFlight.FClass = (FlightClass) NewClass;
@@ -84,7 +84,7 @@ namespace Airport_Ticket_Booking
                 case 4:
                     bookedFlight.PassengerName = newPassName;
                     if (isInFlights(newflightId))
-                        bookedFlight.flight = Flights.Single(f => f.Id == newflightId);
+                        bookedFlight.Flight = Flights.Single(f => f.Id == newflightId);
                     bookedFlight.FClass = (FlightClass) NewClass;
                     break;
                 default:
@@ -93,7 +93,7 @@ namespace Airport_Ticket_Booking
 
             Console.WriteLine("Here is the new information for the updated product:");
             Console.WriteLine($"Id: {bookedFlight.Id}, Passenger Name: {bookedFlight.PassengerName}, " +
-                $"Flight Id: {bookedFlight.flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {bookedFlight.FClass}");
+                $"Flight Id: {bookedFlight.Flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {bookedFlight.FClass}");
 
         }
 
@@ -141,15 +141,28 @@ namespace Airport_Ticket_Booking
             }
         }
 
-      
+        public void showGivenBookings(List<Booking> QueryBooking)
+        {
+            if (QueryBooking.Count == 0)
+            {
+                Console.WriteLine("There is Nothing Matched Your Criterias!");
+            }
+
+            foreach (var BookedFlight in QueryBooking)
+            {
+                Console.WriteLine(BookedFlight);
+            }
+        }
+
+
         public bool IsThereBookingWithThisId(int BookingId)
         {
             try
             {
                 Booking b = Bookings.Single(f => f.Id == BookingId);
-                Console.WriteLine("Here is the old information for the updated product:");
+                Console.WriteLine("Here is the old information for the Booking:");
                 Console.WriteLine($"Id: {b.Id}, Passenger Name: {b.PassengerName}, " +
-                    $"Flight Id: {b.flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {b.FClass}");
+                    $"Flight Id: {b.Flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {b.FClass}");
 
             }
             catch (Exception ex)
@@ -179,10 +192,53 @@ namespace Airport_Ticket_Booking
         /// <param name="PathFile"></param>
         /// 
 
-        public List<Booking> FilterBookings(string code = null, string departureCountry = null, string destinationCountry = null,
-                string departureAirport = null, string arrivalAirport = null, FlightClass? flightClass = null, decimal? maxPrice = null)
+        public List<Booking> FilterBookings(string departureCountry = null, string destinationCountry = null,
+                string departureAirport = null, string arrivalAirport = null, DateTime? DepartureDate = null,  FlightClass? flightClass = null, double? maxPrice = null,
+                string code = null, string passengerName = null)
         {
-            return Bookings;
+            var filteredBookings = Bookings;
+
+            if (code != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.Code == code).ToList();
+            }
+
+            if (passengerName != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.PassengerName == passengerName).ToList();
+            }
+
+            if (departureCountry != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.DepartureCountry == departureCountry).ToList();
+            }
+
+            if (destinationCountry != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.DestinationCountry == destinationCountry).ToList();
+            }
+
+            if (departureAirport != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.DepartureAirport == departureAirport).ToList();
+            }
+
+            if (arrivalAirport != null)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.ArrivalAirport == arrivalAirport).ToList();
+            }
+
+            if (flightClass.HasValue)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.FClass == flightClass).ToList();
+            }
+
+            if (maxPrice.HasValue)
+            {
+                filteredBookings = filteredBookings.Where(booking => booking.Flight.Price <= maxPrice).ToList();
+            }
+
+            return filteredBookings;
         }
 
         public List<Flight> ReadFromCSV(string FilePath, bool isHeader)
@@ -346,9 +402,6 @@ namespace Airport_Ticket_Booking
 
         }
 
-        internal void ModifyBooking(int id, string newPassName, int? newflightId, FlightClass? newFlightClass)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
