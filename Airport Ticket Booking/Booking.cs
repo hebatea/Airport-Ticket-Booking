@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,16 @@ namespace Airport_Ticket_Booking
         {
             get => id;
         }
-        public Flight flight { get; set; }
+        public Flight Flight { get; set; }
         public string PassengerName { get; set; }
         public FlightClass FClass { get; set; } // I am not sure if I should add it or not
+
+        public override string ToString()
+        {
+            return $"Booking ID: {Id}" +
+                   $" Passenger Name: {PassengerName}" +
+                   $" Flight Information: {Flight}";
+
+        }
     }
 }

@@ -183,7 +183,7 @@ namespace Airport_Ticket_Booking
             {
                 Console.WriteLine($"Id: {bookedFlight.Id}, Passenger Name: {bookedFlight.PassengerName}, " +
                $"Flight Calss: {bookedFlight.FClass}, Flight Information: ");
-                Console.WriteLine($"{bookedFlight.flight}");
+                Console.WriteLine($"{bookedFlight.Flight}");
             }
         }
 
