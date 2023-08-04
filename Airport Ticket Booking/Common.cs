@@ -30,7 +30,8 @@ namespace Airport_Ticket_Booking
             ArrivalAirport = 5,
             DepartureDate = 6,
             FlightClass = 7,
-            MaxPrice = 8
+            MaxPrice = 8,
+            Code = 9
         }
 
     public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)

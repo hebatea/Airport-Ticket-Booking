@@ -13,7 +13,7 @@ namespace Airport_Ticket_Booking
         FlightsManager FlightsManager;
         public Manager()
         {
-            FlightsManager = new FlightsManager();
+            FlightsManager = FlightsManager.Instance();
         }
 
         enum ManagerOptions
@@ -39,7 +39,7 @@ namespace Airport_Ticket_Booking
                         break;
 
                     case (int) ManagerOptions.AddCSV:
-                        
+                        AddCSVForFlights();
                         break;
 
                     case (int)ManagerOptions.FieldsDetails:
@@ -49,6 +49,38 @@ namespace Airport_Ticket_Booking
                         Flag = false;
                         break;
                 }
+            }
+        }
+
+        private void AddCSVForFlights()
+        {
+            Console.WriteLine("Please Note that I am Expecting to Have the Data In The Following Order: ");
+            Console.WriteLine("Please Note that All Fields is Required: ");
+            Console.WriteLine("1. Flight Code");
+            Console.WriteLine("2. Departure Country");
+            Console.WriteLine("3. Destination Country");
+            Console.WriteLine("4. Departure Airport");
+            Console.WriteLine("5. Arrival Airport");
+            Console.WriteLine("6. Departure Date");
+            Console.WriteLine("7. Class");
+            Console.WriteLine("8. Price");
+
+            Console.WriteLine("Please Enter the File Path");
+            string FilePath = Console.ReadLine();
+            Console.WriteLine("Is There Will be Header contains Columns Name? ");
+            Console.WriteLine("Press 1 if Yes");
+            Console.WriteLine("Press 2 if No");
+            bool isHeader = (int)UserInput((int)IntOrDouble.integern, 1, 2) == 1 ? true : false;
+
+            try
+            {
+                FilePath = @$"{FilePath}";
+                List<Flight> Flights = FlightsManager.ReadFromCSV(FilePath, isHeader);
+                FlightsManager.showFlights(Flights);
+            }
+            catch  (Exception ex)
+            {
+                Console.WriteLine("The Path that you Entered is Not Found!");
             }
         }
 
