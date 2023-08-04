@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using static Airport_Ticket_Booking.Common;
@@ -14,13 +15,23 @@ namespace Airport_Ticket_Booking
         List<Flight> Flights;
         List<Booking> Bookings;
         CSVManager CSVManager;  // For Further Improvment
+        static FlightsManager FlightManager;
 
-        public FlightsManager()
+        public static FlightsManager Instance()
+        {
+            if (FlightManager == null)
+            {
+                FlightManager = new FlightsManager();
+            }
+            return FlightManager;
+        }
+
+        protected FlightsManager()
         {
             Flights = new List<Flight>();
             Bookings = new List<Booking>();
+           
             // just for test purpose
-            ReadFromCSV("C:\\Users\\Heba Ashour\\source\\repos\\Airport Ticket Booking\\Airport Ticket Booking\\Flights.csv");
         }
 
         /// <summary>
@@ -174,41 +185,163 @@ namespace Airport_Ticket_Booking
             return Bookings;
         }
 
-        public List<Flight> ReadFromCSV(string FilePath)
+        public List<Flight> ReadFromCSV(string FilePath, bool isHeader)
         {
             if (!File.Exists(FilePath))
             {
                 throw new FileNotFoundException("The file was not found.", FilePath);
             }
 
-            List<string[]> csvData = new List<string[]>();
-            var Include = false;
-
+            var Include = isHeader? false: true;
+            List<string> ErrorsExceptionsList = new List<string>();
+            string ErrorsMesssage;
+            bool ShouldAdded;
             using (StreamReader Reader = new StreamReader(FilePath))
             {
+                int rowCount = -1;
                 while (!Reader.EndOfStream)
                 {
-
+                    ErrorsMesssage = "";
+                    rowCount++;
+                    ShouldAdded = true;
+                    Flight NewFlight = new Flight();
 
                     string Line = Reader.ReadLine();
                     string[] Fields = Line.Split(',');
                     if (!Include) { Include = true; continue; }
 
-                    Flight MFlight = new Flight();
+                    string FlightCode = Fields[0];
+                    string DepartureCountry = Fields[1];
+                    string DestinationCountry = Fields[2];
+                    string DepartureAirport = Fields[3];
+                    string ArrivalAirport = Fields[4];
 
-                    MFlight.Code = Fields[0];
-                    //MFlight.Price = Convert.ToDouble(Fields[1]);
-                    MFlight.DepartureCountry = Fields[2];
-                    MFlight.DestinationCountry = Fields[3];
-                    //MFlight.DepartureDate = Fields.Parse(StrFlight[4]);
-                    MFlight.DepartureAirport = Fields[5];
-                    MFlight.ArrivalAirport = Fields[6];
-                    //MFlight.FClass             = StrFlight[7];
+                    try
+                    {
+                        NewFlight.Code = FlightCode;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
 
-                    Flights.Add(MFlight);
+                    try
+                    {
+                        NewFlight.DepartureCountry = DepartureCountry;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
+
+                    try
+                    {
+                        NewFlight.DestinationCountry = DestinationCountry;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
+
+                    try
+                    {
+                        NewFlight.DepartureAirport = DepartureAirport;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
+
+                    try
+                    {
+                        NewFlight.ArrivalAirport = ArrivalAirport;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
+
+
+
+                    DateTime DepartureDate;
+                    try
+                    {
+                        DepartureDate = DateTime.Parse(Fields[5]);
+                        NewFlight.DepartureDate = DepartureDate;
+                    }
+                    catch (FormatException ex)
+                    {
+                        ErrorsMesssage += "Error: Unable to parse Departure Date DateTime using DateTime.Parse.";
+                        ErrorsMesssage += "Exception message: " + ex.Message + "\n";
+                        ShouldAdded = false;
+                    }
+                    catch(ArgumentException ex)
+                    {
+                        ErrorsMesssage += ex.Message;
+                        ShouldAdded = false;
+                    }
+
+                    int FClass;
+
+                    if (int.TryParse(Fields[6], out FClass))
+                    {
+                        try
+                        {
+                            NewFlight.FClass = (FlightClass)FClass;
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            ErrorsMesssage += ex.Message;
+                            ShouldAdded = false;
+                        }
+                    }
+                    else
+                    {
+                        ErrorsMesssage += "Error: Unable to parse Flight Class integer using int.TryParse.\n";
+                        ShouldAdded = false;
+                    }
+
+                    double Price;
+                    if (double.TryParse(Fields[7], out Price))
+                    {
+                        try
+                        {
+                            NewFlight.Price = Price;
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            ErrorsMesssage += ex.Message;
+                            ShouldAdded = false;
+                        }
+                    }
+                    else
+                    {
+                        ErrorsMesssage += "Error: Unable to parse Price to double using double.TryParse.\n";
+                        ShouldAdded = false;
+                    }
+
+
+                    if(ShouldAdded) 
+                        Flights.Add(NewFlight);
+                    else
+                    {
+                        ErrorsMesssage = $"Row : {rowCount} Can not added becuase of:\n" + ErrorsMesssage;
+                        ErrorsExceptionsList.Add(ErrorsMesssage);
+                    }
 
                 }
             }
+
+            foreach(var Error in ErrorsExceptionsList)
+            {
+                Console.WriteLine(Error);
+            }
+
             return Flights;
 
         }

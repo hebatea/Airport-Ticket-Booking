@@ -19,7 +19,7 @@ namespace Airport_Ticket_Booking
         FlightsManager FlightsManager;
         public Passenger()
         {
-           FlightsManager = new FlightsManager();
+            FlightsManager = FlightsManager.Instance();
         }
         public void PassengerMain()
         {
@@ -124,7 +124,9 @@ namespace Airport_Ticket_Booking
                         case (int)SearchBasedOn.DepartureDate:
                             Console.WriteLine("Please Enter the Day:");
                             int Day = (int)UserInput((int)IntOrDouble.integern);
+                            Console.WriteLine("Please Enter the Month:");
                             int Month = (int)UserInput((int)IntOrDouble.integern);
+                            Console.WriteLine("Please Enter the Year:");
                             int Year = (int)UserInput((int)IntOrDouble.integern);
                             DepartureDate = new DateTime(Year, Month, Day);
                             break;
