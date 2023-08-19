@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Airport_Ticket_Booking.Commons;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Airport_Ticket_Booking.Common;
 
 namespace Airport_Ticket_Booking
 {
-    public class Manager
+    public partial class Manager
     {
         FlightsManager FlightsManager;
         public Manager()
@@ -24,52 +22,36 @@ namespace Airport_Ticket_Booking
         public void ManagerMain()
         {
             var Flag = true;
-            while(Flag) { 
-                Console.WriteLine("***************************************************");
-                Console.WriteLine("************** 1. Filter Booking ******************");
-                Console.WriteLine("************** 2. Add Flights *********************");
-                Console.WriteLine("************** 3. Flieds Details *********************");
-                Console.WriteLine("************** 4. Exit ****************************");
-                Console.WriteLine("***************************************************");
+            while (Flag)
+            {
+                Menus.ManagerMenu();
 
-                int number = (int) UserInput((int)IntOrDouble.integern, 1, 4);
+                int number = (int)UserInput((int)IntOrDouble.integern, 1, 4);
                 switch (number)
                 {
-                    case (int) ManagerOptions.ShowBookings:
+                    case (int)ManagerOptions.ShowBookings:
                         ShowBookingsInput();
                         break;
 
-                    case (int) ManagerOptions.AddCSV:
+                    case (int)ManagerOptions.AddCSV:
                         AddCSVForFlights();
                         break;
 
                     case (int)ManagerOptions.FieldsDetails:
                         GetFieldConstraints();
                         break;
-                    case (int) ManagerOptions.Exit:
+                    case (int)ManagerOptions.Exit:
                         Flag = false;
                         break;
                 }
             }
         }
 
+        
+
         private void ShowBookingsInput()
         {
-            Console.WriteLine("What You Want to Search Based On?");
-            Console.WriteLine("1. Show me All the Bookings");
-            Console.WriteLine("2. Departure Country");
-            Console.WriteLine("3. Destination Country");
-            Console.WriteLine("4. Departure Airport");
-            Console.WriteLine("5. Arrival Airport");
-            Console.WriteLine("6. Departure Date");
-            Console.WriteLine("7. Class");
-            Console.WriteLine("8. Price");
-            Console.WriteLine("9. Flight Code");
-            Console.WriteLine("10. Passenger Name");
-
-
-            Console.WriteLine("Please Enter The Values Of Numbers That you Want to Search Based On It Separeted with Comma");
-            Console.WriteLine("Like 1, 2, 5, etc");
+            Menus.ShowBookingsInputMenu();
 
             List<int> OptionList = TakeTheListFromUser();
             if (OptionList.Count > 0)
@@ -130,7 +112,7 @@ namespace Airport_Ticket_Booking
                             break;
                         case (int)SearchBasedOn.Code:
                             Console.WriteLine("Please Enter The Flight Code:");
-                            FlightCode= Console.ReadLine();
+                            FlightCode = Console.ReadLine();
                             break;
                         case (int)SearchBasedOn.PassengerName:
                             Console.WriteLine("Please Enter The Passenger Name:");
@@ -141,7 +123,7 @@ namespace Airport_Ticket_Booking
                             break;
                     }
                 }
-                List<Booking> FilterBookings = FlightsManager.FilterBookings(DepartureCountry, DestinationCountry, 
+                List<Booking> FilterBookings = FlightsManager.FilterBookings(DepartureCountry, DestinationCountry,
                     DepartureAirport, ArrivalAirport, DepartureDate, FlightClass, MaxPrice, FlightCode, PassengerName);
                 FlightsManager.showGivenBookings(FilterBookings);
             }
@@ -152,18 +134,11 @@ namespace Airport_Ticket_Booking
 
         }
 
+        
+
         private void AddCSVForFlights()
         {
-            Console.WriteLine("Please Note that I am Expecting to Have the Data In The Following Order: ");
-            Console.WriteLine("Please Note that All Fields is Required: ");
-            Console.WriteLine("1. Flight Code");
-            Console.WriteLine("2. Departure Country");
-            Console.WriteLine("3. Destination Country");
-            Console.WriteLine("4. Departure Airport");
-            Console.WriteLine("5. Arrival Airport");
-            Console.WriteLine("6. Departure Date");
-            Console.WriteLine("7. Class");
-            Console.WriteLine("8. Price");
+            Menus.AddCSVForFlightsMenu();
 
             Console.WriteLine("Please Enter the File Path");
             string FilePath = Console.ReadLine();
@@ -178,49 +153,35 @@ namespace Airport_Ticket_Booking
                 List<Flight> Flights = FlightsManager.ReadFromCSV(FilePath, isHeader);
                 FlightsManager.showFlights(Flights);
             }
-            catch  (Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("The Path that you Entered is Not Found!");
             }
         }
 
+        
 
         public static void GetFieldConstraints()
         {
             var flightType = typeof(Flight);
             var properties = flightType.GetProperties();
-            
-            foreach(var property in properties)
+
+            foreach (var property in properties)
             {
                 var constraints = property.GetCustomAttributes(typeof(FlightFieldConstraintAttribute), true)
                                          .OfType<FlightFieldConstraintAttribute>()
                                          .FirstOrDefault();
 
-                if(constraints != null)
+                if (constraints != null)
                 {
                     Console.WriteLine($"{property.Name}");
                     Console.WriteLine($"Data Type: {constraints.DataType}");
                     Console.WriteLine($"Is Required: {constraints.IsRequired}");
-                    if (!string.IsNullOrEmpty(constraints.AllowedRange)) 
+                    if (!string.IsNullOrEmpty(constraints.AllowedRange))
                         Console.WriteLine($"Allowed Range: {constraints.AllowedRange}");
                     Console.WriteLine();
 
                 }
-            }
-        }
-
-        [AttributeUsage(AttributeTargets.Property)]
-        public class FlightFieldConstraintAttribute: Attribute
-        {
-            public string DataType { get; set; }
-            public bool IsRequired { get; set; }
-            public string AllowedRange { get; set; }
-
-            public FlightFieldConstraintAttribute(string dataType, bool isRequired, string allowedRange = null)
-            {
-                DataType = dataType;
-                IsRequired = isRequired;
-                AllowedRange = allowedRange;
             }
         }
     }

@@ -55,8 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Booking.cs" />
-    <Compile Include="Common.cs" />
+    <Compile Include="Commons\Common.cs" />
+    <Compile Include="Commons\Menus.cs" />
     <Compile Include="CSVManager.cs" />
+    <Compile Include="FlightFieldConstraintAttribute.cs" />
     <Compile Include="FlightsManager.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="Manager.cs" />

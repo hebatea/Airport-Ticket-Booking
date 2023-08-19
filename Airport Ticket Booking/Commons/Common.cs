@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking
 {
     public static class Common
     {
-        public enum FlightClass{
+        public enum FlightClass
+        {
             Economy = 1,
             Business = 2,
             FirstClass = 3
@@ -35,7 +32,7 @@ namespace Airport_Ticket_Booking
             PassengerName = 10
         }
 
-    public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)
+        public static double UserInput(int IsIntOrDouble, int? StartRange = null, int? EndRange = null)
         {
             double Output;
             int IntOutput;
@@ -50,20 +47,20 @@ namespace Airport_Ticket_Booking
                         if (int.TryParse(userInput, out IntOutput))
                         {
                             isVaild = IsInRange(IntOutput, StartRange, EndRange);
-                            if(isVaild)
+                            if (isVaild)
                                 return IntOutput;
                             else
                             {
                                 Console.WriteLine($"Please Enter Value between {StartRange} and {EndRange}");
                             }
-                                                        
+
                         }
                         else
                         {
                             Console.WriteLine("Invalid input! Please enter a valid integer value.");
                         }
 
-                        
+
                         break;
 
                     case (int)IntOrDouble.doublen:

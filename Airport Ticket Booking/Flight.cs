@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using static Airport_Ticket_Booking.Common;
 using static Airport_Ticket_Booking.Manager;
 
@@ -22,7 +17,8 @@ namespace Airport_Ticket_Booking
         private string arrivalAirport;
         private FlightClass fClass;
 
-        public Flight() {
+        public Flight()
+        {
             id = ++LastId;
         }
         public int Id
@@ -33,7 +29,7 @@ namespace Airport_Ticket_Booking
         [FlightFieldConstraint("Free Text", true)]
         public string Code
         {
-            get => code; 
+            get => code;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -46,31 +42,39 @@ namespace Airport_Ticket_Booking
         }
 
         [FlightFieldConstraint("Double", true, "0 -> infinity")]
-        public double Price { get => price;
-            set{
+        public double Price
+        {
+            get => price;
+            set
+            {
                 if (value < 0)
                 {
                     throw new ArgumentException("Price cannot be a negative number.\n");
                 }
-                price = value; 
+                price = value;
             }
         }
 
         [FlightFieldConstraint("Free Text", true)]
-        public string DepartureCountry { get => departureCountry;
-            set 
+        public string DepartureCountry
+        {
+            get => departureCountry;
+            set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Departure Country cannot be null or empty.\n");
                 }
-                departureCountry = value.Trim(); 
+                departureCountry = value.Trim();
             }
         }
 
         [FlightFieldConstraint("Free Text", true)]
-        public string DestinationCountry { get => destinationCountry;
-            set {
+        public string DestinationCountry
+        {
+            get => destinationCountry;
+            set
+            {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Destination Country cannot be null or empty.\n");
@@ -80,8 +84,11 @@ namespace Airport_Ticket_Booking
         }
 
         [FlightFieldConstraint("Date Time", true, "today -> future")]
-        public DateTime DepartureDate { get => departureDate; 
-            set {
+        public DateTime DepartureDate
+        {
+            get => departureDate;
+            set
+            {
                 if (value <= DateTime.Now)
                 {
                     throw new ArgumentException("Departure Date must be a date in the future.\n");
@@ -91,7 +98,9 @@ namespace Airport_Ticket_Booking
         }
 
         [FlightFieldConstraint("Free Text", true)]
-        public string DepartureAirport { get => departureAirport;
+        public string DepartureAirport
+        {
+            get => departureAirport;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -103,7 +112,9 @@ namespace Airport_Ticket_Booking
         }
 
         [FlightFieldConstraint("Free Text", true)]
-        public string ArrivalAirport { get => arrivalAirport;
+        public string ArrivalAirport
+        {
+            get => arrivalAirport;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -115,14 +126,17 @@ namespace Airport_Ticket_Booking
         }
 
         [FlightFieldConstraint("Number from 1 - 3", true, "1 -> Economy, 2 -> Business, 3 -> First Class")]
-        public FlightClass FClass { get => fClass; 
-            set {
-                if ((int) value < 1 || (int) value > 3)
+        public FlightClass FClass
+        {
+            get => fClass;
+            set
+            {
+                if ((int)value < 1 || (int)value > 3)
                 {
                     throw new ArgumentException("Flight Class Should be From 1 to 3.\n");
                 }
-                fClass = value; 
-            } 
+                fClass = value;
+            }
         }
 
         public override string ToString()
@@ -136,7 +150,7 @@ namespace Airport_Ticket_Booking
                $", Departure Date: {DepartureDate}" +
                $", Class: {FClass}" +
                $", Price: ${Price}\n";
-        }        
+        }
 
     }
 }

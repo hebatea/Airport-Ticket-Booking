@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Airport_Ticket_Booking.Commons;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using static Airport_Ticket_Booking.Common;
 
 namespace Airport_Ticket_Booking
 {
-   
+
     enum PassengerOptions
     {
         Book = 1, Show = 2, Modify = 3, Cancel = 4, View = 5, Exit = 6
@@ -27,14 +24,7 @@ namespace Airport_Ticket_Booking
 
             while (Flag)
             {
-                Console.WriteLine("***************************************************");
-                Console.WriteLine("************** 1. Book a Flight *******************");
-                Console.WriteLine("************** 2. Show Avaliable Flights **********");
-                Console.WriteLine("************** 3. Modify Booking ******************");
-                Console.WriteLine("************** 4. Cancel Booking ******************");
-                Console.WriteLine("************** 5. View Bookings *******************");
-                Console.WriteLine("************** 6. Exit ****************************");
-                Console.WriteLine("***************************************************");
+                Menus.PassengerMenu();
 
                 string userInput = Console.ReadLine();
                 if (!int.TryParse(userInput, out int number))
@@ -45,22 +35,22 @@ namespace Airport_Ticket_Booking
 
                 switch (number)
                 {
-                    case (int) PassengerOptions.Book:
+                    case (int)PassengerOptions.Book:
                         BookAskInput();
                         break;
-                    case (int) PassengerOptions.Show:
+                    case (int)PassengerOptions.Show:
                         ShowFlightsAskInput();
                         break;
-                    case (int) PassengerOptions.Modify:
+                    case (int)PassengerOptions.Modify:
                         ModifyAskInput();
                         break;
-                    case (int) PassengerOptions.Cancel:
+                    case (int)PassengerOptions.Cancel:
                         CancelAskInput();
                         break;
-                    case (int) PassengerOptions.View:
+                    case (int)PassengerOptions.View:
                         ViewAskInput();
                         break;
-                    case (int) PassengerOptions.Exit:
+                    case (int)PassengerOptions.Exit:
                         Flag = false;
                         break;
                     default:
@@ -70,24 +60,14 @@ namespace Airport_Ticket_Booking
             }
         }
 
+       
+
         private void ShowFlightsAskInput()
         {
-            Console.WriteLine("What You Want to Search Based On?");
-            Console.WriteLine("1. Show me All the Flights");
-            Console.WriteLine("2. Departure Country");
-            Console.WriteLine("3. Destination Country");
-            Console.WriteLine("4. Departure Airport");
-            Console.WriteLine("5. Arrival Airport");
-            Console.WriteLine("6. Departure Date");
-            Console.WriteLine("7. Class");
-            Console.WriteLine("8. Price\n");
-
-
-            Console.WriteLine("Please Enter The Values Of Numbers That you Want to Search Based On It Separeted with Comma");
-            Console.WriteLine("Like 1, 2, 5, etc");
+            Menus.ShowFlightsAskInputMenu();
 
             List<int> OptionList = TakeTheListFromUser();
-            if(OptionList.Count > 0)
+            if (OptionList.Count > 0)
             {
                 string DepartureCountry = null;
                 string DestinationCountry = null;
@@ -102,7 +82,7 @@ namespace Airport_Ticket_Booking
                 {
                     switch (option)
                     {
-                        case (int) SearchBasedOn.All:
+                        case (int)SearchBasedOn.All:
                             FlightsManager.showFlights(FlightsManager.SearchFlights());
                             return;
                         case (int)SearchBasedOn.DepartureCountry:
@@ -135,7 +115,7 @@ namespace Airport_Ticket_Booking
                             Console.WriteLine("1 : Economy");
                             Console.WriteLine("2 : Business");
                             Console.WriteLine("3 : FirstClass");
-                            FlightClass = (FlightClass) UserInput((int)IntOrDouble.integern, 1, 3);
+                            FlightClass = (FlightClass)UserInput((int)IntOrDouble.integern, 1, 3);
                             break;
                         case (int)SearchBasedOn.MaxPrice:
                             Console.WriteLine("Please Enter The Max Price That You Do not Want to Exceed:");
@@ -155,6 +135,8 @@ namespace Airport_Ticket_Booking
 
         }
 
+       
+
         private void CancelAskInput()
         {
             Console.WriteLine("Please Enter The Id of the Booking you Want to Cancel: ");
@@ -164,7 +146,7 @@ namespace Airport_Ticket_Booking
                 Console.WriteLine("There is no Booking with this Id!");
             }
             else
-            { 
+            {
                 FlightsManager.CancelBooking(id);
                 Console.WriteLine("Cancelled Successfully");
             }
@@ -175,11 +157,11 @@ namespace Airport_Ticket_Booking
             Console.WriteLine("Please Enter The Name that You Booked Using It");
             string Name = Console.ReadLine();
             List<Booking> BookingsName = FlightsManager.ShowBooking(Name);
-            if(BookingsName == null)
+            if (BookingsName == null)
             {
                 Console.WriteLine("There is no booking assigned to this name!");
             }
-            foreach(Booking bookedFlight in BookingsName)
+            foreach (Booking bookedFlight in BookingsName)
             {
                 Console.WriteLine($"Id: {bookedFlight.Id}, Passenger Name: {bookedFlight.PassengerName}, " +
                $"Flight Calss: {bookedFlight.FClass}, Flight Information: ");
@@ -194,16 +176,12 @@ namespace Airport_Ticket_Booking
             bool IsBooking = FlightsManager.IsThereBookingWithThisId(id);
             if (IsBooking)
             {
-                Console.WriteLine("Choose from the following what do you want to modify: ");
-                Console.WriteLine("1. Modify the Passenger Name");
-                Console.WriteLine("2. Modify the Flight Id");
-                Console.WriteLine("3. Modify The Class");
-                Console.WriteLine("4. Modify all");
+                Menus.ModifyAskInputMenu();
 
                 int number = (int)UserInput((int)IntOrDouble.integern, 1, 4);
                 string newPassName = null;
                 int NewflightId = 1; // By the end the id will change it is just initial value
-                int NewFlightClass = (int) 1;
+                int NewFlightClass = (int)1;
                 switch (number)
                 {
                     case 1:
@@ -212,13 +190,10 @@ namespace Airport_Ticket_Booking
                         break;
                     case 2:
                         Console.WriteLine("Please Enter the New Flight Id:");
-                        NewflightId = (int) UserInput((int)IntOrDouble.integern);
+                        NewflightId = (int)UserInput((int)IntOrDouble.integern);
                         break;
                     case 3:
-                        Console.WriteLine("Please Enter the New Class:");
-                        Console.WriteLine("1 : Economy");
-                        Console.WriteLine("2 : Business");
-                        Console.WriteLine("3 : FirstClass");
+                        Menus.ClassChoiceMenu();
                         NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
                         break;
                     case 4:
@@ -228,10 +203,7 @@ namespace Airport_Ticket_Booking
                         Console.WriteLine("Please Enter the New Flight Id:");
                         NewflightId = (int)UserInput((int)IntOrDouble.integern);
 
-                        Console.WriteLine("Please Enter the New Class:");
-                        Console.WriteLine("1 : Economy");
-                        Console.WriteLine("2 : Business");
-                        Console.WriteLine("3 : FirstClass");
+                        Menus.ClassChoiceMenu();
                         NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
                         break;
                     default:
@@ -245,28 +217,27 @@ namespace Airport_Ticket_Booking
             }
         }
 
+        
+
         private void BookAskInput()
         {
             Console.WriteLine("Please Enter Your Name: ");
             string PassengerName = Console.ReadLine();
 
             Console.WriteLine("Please Enter the Id For your Flight: ");
-            int FlightId = (int) UserInput((int) IntOrDouble.integern);
+            int FlightId = (int)UserInput((int)IntOrDouble.integern);
             while (!FlightsManager.isInFlights(FlightId))
             {
                 Console.WriteLine("Please Enter Id from available Ids:");
                 FlightId = (int)UserInput((int)IntOrDouble.integern);
             }
 
-            Console.WriteLine("Please Enter the class:");
-            Console.WriteLine("1 : Economy");
-            Console.WriteLine("2 : Business");
-            Console.WriteLine("3 : FirstClass");
+            Menus.ClassChoiceMenu();
 
             int ClassInput = (int)UserInput((int)IntOrDouble.integern, 1, 3);
-           
 
-            FlightsManager.BookFlight(PassengerName, FlightId, (FlightClass) ClassInput);
+
+            FlightsManager.BookFlight(PassengerName, FlightId, (FlightClass)ClassInput);
         }
     }
 }
