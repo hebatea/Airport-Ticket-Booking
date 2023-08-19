@@ -14,8 +14,8 @@ namespace Airport_Ticket_Booking
 
         public enum IntOrDouble
         {
-            integern = 0,
-            doublen = 1
+            integerType = 0,
+            doubleType = 1
         }
 
         public enum SearchBasedOn
@@ -41,7 +41,7 @@ namespace Airport_Ticket_Booking
             {
                 switch (IsIntOrDouble)
                 {
-                    case (int)IntOrDouble.integern:
+                    case (int)IntOrDouble.integerType:
 
                         string userInput = Console.ReadLine();
                         if (int.TryParse(userInput, out IntOutput))
@@ -63,7 +63,7 @@ namespace Airport_Ticket_Booking
 
                         break;
 
-                    case (int)IntOrDouble.doublen:
+                    case (int)IntOrDouble.doubleType:
                         userInput = Console.ReadLine();
                         if (double.TryParse(userInput, out Output))
                         {

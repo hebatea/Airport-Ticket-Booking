@@ -13,7 +13,7 @@ namespace Airport_Ticket_Booking
             {
                 Menus.ProgramMenu();
 
-                int number = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+                int number = (int)UserInput((int)IntOrDouble.integerType, 1, 3);
 
                 if (number == 1)
                 {

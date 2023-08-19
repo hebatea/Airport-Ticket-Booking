@@ -103,11 +103,11 @@ namespace Airport_Ticket_Booking
                             break;
                         case (int)SearchBasedOn.DepartureDate:
                             Console.WriteLine("Please Enter the Day:");
-                            int Day = (int)UserInput((int)IntOrDouble.integern);
+                            int Day = (int)UserInput((int)IntOrDouble.integerType);
                             Console.WriteLine("Please Enter the Month:");
-                            int Month = (int)UserInput((int)IntOrDouble.integern);
+                            int Month = (int)UserInput((int)IntOrDouble.integerType);
                             Console.WriteLine("Please Enter the Year:");
-                            int Year = (int)UserInput((int)IntOrDouble.integern);
+                            int Year = (int)UserInput((int)IntOrDouble.integerType);
                             DepartureDate = new DateTime(Year, Month, Day);
                             break;
                         case (int)SearchBasedOn.FlightClass:
@@ -115,11 +115,11 @@ namespace Airport_Ticket_Booking
                             Console.WriteLine("1 : Economy");
                             Console.WriteLine("2 : Business");
                             Console.WriteLine("3 : FirstClass");
-                            FlightClass = (FlightClass)UserInput((int)IntOrDouble.integern, 1, 3);
+                            FlightClass = (FlightClass)UserInput((int)IntOrDouble.integerType, 1, 3);
                             break;
                         case (int)SearchBasedOn.MaxPrice:
                             Console.WriteLine("Please Enter The Max Price That You Do not Want to Exceed:");
-                            MaxPrice = UserInput((int)IntOrDouble.doublen);
+                            MaxPrice = UserInput((int)IntOrDouble.doubleType);
                             break;
                         default:
                             break;
@@ -140,7 +140,7 @@ namespace Airport_Ticket_Booking
         private void CancelAskInput()
         {
             Console.WriteLine("Please Enter The Id of the Booking you Want to Cancel: ");
-            int id = (int)UserInput((int)IntOrDouble.integern);
+            int id = (int)UserInput((int)IntOrDouble.integerType);
             if (!FlightsManager.IsThereBookingWithThisId(id))
             {
                 Console.WriteLine("There is no Booking with this Id!");
@@ -172,13 +172,13 @@ namespace Airport_Ticket_Booking
         private void ModifyAskInput()
         {
             Console.WriteLine("Please Enter The Id of the Booking that you want to modify: ");
-            int id = (int)UserInput((int)IntOrDouble.integern);
+            int id = (int)UserInput((int)IntOrDouble.integerType);
             bool IsBooking = FlightsManager.IsThereBookingWithThisId(id);
             if (IsBooking)
             {
                 Menus.ModifyAskInputMenu();
 
-                int number = (int)UserInput((int)IntOrDouble.integern, 1, 4);
+                int number = (int)UserInput((int)IntOrDouble.integerType, 1, 4);
                 string newPassName = null;
                 int NewflightId = 1; // By the end the id will change it is just initial value
                 int NewFlightClass = (int)1;
@@ -190,21 +190,21 @@ namespace Airport_Ticket_Booking
                         break;
                     case 2:
                         Console.WriteLine("Please Enter the New Flight Id:");
-                        NewflightId = (int)UserInput((int)IntOrDouble.integern);
+                        NewflightId = (int)UserInput((int)IntOrDouble.integerType);
                         break;
                     case 3:
                         Menus.ClassChoiceMenu();
-                        NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+                        NewFlightClass = (int)UserInput((int)IntOrDouble.integerType, 1, 3);
                         break;
                     case 4:
                         Console.WriteLine("Please Enter the New Name:");
                         newPassName = Console.ReadLine();
 
                         Console.WriteLine("Please Enter the New Flight Id:");
-                        NewflightId = (int)UserInput((int)IntOrDouble.integern);
+                        NewflightId = (int)UserInput((int)IntOrDouble.integerType);
 
                         Menus.ClassChoiceMenu();
-                        NewFlightClass = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+                        NewFlightClass = (int)UserInput((int)IntOrDouble.integerType, 1, 3);
                         break;
                     default:
                         break;
@@ -225,16 +225,16 @@ namespace Airport_Ticket_Booking
             string PassengerName = Console.ReadLine();
 
             Console.WriteLine("Please Enter the Id For your Flight: ");
-            int FlightId = (int)UserInput((int)IntOrDouble.integern);
+            int FlightId = (int)UserInput((int)IntOrDouble.integerType);
             while (!FlightsManager.isInFlights(FlightId))
             {
                 Console.WriteLine("Please Enter Id from available Ids:");
-                FlightId = (int)UserInput((int)IntOrDouble.integern);
+                FlightId = (int)UserInput((int)IntOrDouble.integerType);
             }
 
             Menus.ClassChoiceMenu();
 
-            int ClassInput = (int)UserInput((int)IntOrDouble.integern, 1, 3);
+            int ClassInput = (int)UserInput((int)IntOrDouble.integerType, 1, 3);
 
 
             FlightsManager.BookFlight(PassengerName, FlightId, (FlightClass)ClassInput);

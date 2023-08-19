@@ -1,6 +1,7 @@
 ﻿using Airport_Ticket_Booking.Commons;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static Airport_Ticket_Booking.Common;
 
@@ -26,7 +27,7 @@ namespace Airport_Ticket_Booking
             {
                 Menus.ManagerMenu();
 
-                int number = (int)UserInput((int)IntOrDouble.integern, 1, 4);
+                int number = (int)UserInput((int)IntOrDouble.integerType, 1, 4);
                 switch (number)
                 {
                     case (int)ManagerOptions.ShowBookings:
@@ -92,11 +93,11 @@ namespace Airport_Ticket_Booking
                             break;
                         case (int)SearchBasedOn.DepartureDate:
                             Console.WriteLine("Please Enter the Day:");
-                            int Day = (int)UserInput((int)IntOrDouble.integern);
+                            int Day = (int)UserInput((int)IntOrDouble.integerType);
                             Console.WriteLine("Please Enter the Month:");
-                            int Month = (int)UserInput((int)IntOrDouble.integern);
+                            int Month = (int)UserInput((int)IntOrDouble.integerType);
                             Console.WriteLine("Please Enter the Year:");
-                            int Year = (int)UserInput((int)IntOrDouble.integern);
+                            int Year = (int)UserInput((int)IntOrDouble.integerType);
                             DepartureDate = new DateTime(Year, Month, Day);
                             break;
                         case (int)SearchBasedOn.FlightClass:
@@ -104,11 +105,11 @@ namespace Airport_Ticket_Booking
                             Console.WriteLine("1 : Economy");
                             Console.WriteLine("2 : Business");
                             Console.WriteLine("3 : FirstClass");
-                            FlightClass = (FlightClass)UserInput((int)IntOrDouble.integern, 1, 3);
+                            FlightClass = (FlightClass)UserInput((int)IntOrDouble.integerType, 1, 3);
                             break;
                         case (int)SearchBasedOn.MaxPrice:
                             Console.WriteLine("Please Enter The Max Price That You Do not Want to Exceed:");
-                            MaxPrice = UserInput((int)IntOrDouble.doublen);
+                            MaxPrice = UserInput((int)IntOrDouble.doubleType);
                             break;
                         case (int)SearchBasedOn.Code:
                             Console.WriteLine("Please Enter The Flight Code:");
@@ -145,7 +146,7 @@ namespace Airport_Ticket_Booking
             Console.WriteLine("Is There Will be Header contains Columns Name? ");
             Console.WriteLine("Press 1 if Yes");
             Console.WriteLine("Press 2 if No");
-            bool isHeader = (int)UserInput((int)IntOrDouble.integern, 1, 2) == 1 ? true : false;
+            bool isHeader = (int)UserInput((int)IntOrDouble.integerType, 1, 2) == 1 ? true : false;
 
             try
             {
@@ -153,7 +154,7 @@ namespace Airport_Ticket_Booking
                 List<Flight> Flights = FlightsManager.ReadFromCSV(FilePath, isHeader);
                 FlightsManager.showFlights(Flights);
             }
-            catch (Exception ex)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("The Path that you Entered is Not Found!");
             }
