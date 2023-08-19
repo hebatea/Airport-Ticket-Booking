@@ -5,6 +5,11 @@ namespace Airport_Ticket_Booking
 {
     public static class Common
     {
+        public enum RoleEnum
+        {
+            Passenger = 1,
+            Manager = 2
+        }
         public enum FlightClass
         {
             Economy = 1,

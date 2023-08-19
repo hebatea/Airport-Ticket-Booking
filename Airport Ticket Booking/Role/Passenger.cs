@@ -1,4 +1,5 @@
 ﻿using Airport_Ticket_Booking.Commons;
+using Airport_Ticket_Booking.Role;
 using System;
 using System.Collections.Generic;
 using static Airport_Ticket_Booking.Common;
@@ -11,14 +12,14 @@ namespace Airport_Ticket_Booking
         Book = 1, Show = 2, Modify = 3, Cancel = 4, View = 5, Exit = 6
     }
 
-    public class Passenger
+    public class Passenger : IRole
     {
         FlightsManager FlightsManager;
         public Passenger()
         {
             FlightsManager = FlightsManager.Instance();
         }
-        public void PassengerMain()
+        public void GetMain()
         {
             var Flag = true;
 

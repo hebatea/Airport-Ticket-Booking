@@ -1,4 +1,5 @@
 ﻿using Airport_Ticket_Booking.Commons;
+using Airport_Ticket_Booking.Role;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using static Airport_Ticket_Booking.Common;
 
 namespace Airport_Ticket_Booking
 {
-    public partial class Manager
+    public partial class Manager : IRole
     {
         FlightsManager FlightsManager;
         public Manager()
@@ -20,7 +21,7 @@ namespace Airport_Ticket_Booking
             ShowBookings = 1, AddCSV = 2, FieldsDetails = 3, Exit = 4
         }
 
-        public void ManagerMain()
+        public void GetMain()
         {
             var Flag = true;
             while (Flag)

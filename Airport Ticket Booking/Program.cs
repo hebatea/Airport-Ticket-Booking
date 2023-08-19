@@ -1,5 +1,5 @@
 ﻿using Airport_Ticket_Booking.Commons;
-using System;
+using Airport_Ticket_Booking.Role;
 using static Airport_Ticket_Booking.Common;
 
 namespace Airport_Ticket_Booking
@@ -15,24 +15,18 @@ namespace Airport_Ticket_Booking
 
                 int number = (int)UserInput((int)IntOrDouble.integerType, 1, 3);
 
-                if (number == 1)
+                if (number == 3)
                 {
-                    Passenger passenger = new Passenger();
-                    passenger.PassengerMain();
-
-                }
-                else if (number == 2)
-                {
-                    Manager manager = new Manager();
-                    manager.ManagerMain();
+                    flag = false;
                 }
                 else
                 {
-                    flag = false;
+                    IRole role = RoleFactory.CreateRole(number);
+                    role.GetMain();
                 }
             }
         }
 
-        
+
     }
 }
