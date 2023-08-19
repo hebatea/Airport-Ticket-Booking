@@ -101,10 +101,7 @@ namespace Airport_Ticket_Booking
                             DepartureDate = new DateTime(Year, Month, Day);
                             break;
                         case (int)SearchBasedOn.FlightClass:
-                            Console.WriteLine("Please Enter the New Class:");
-                            Console.WriteLine("1 : Economy");
-                            Console.WriteLine("2 : Business");
-                            Console.WriteLine("3 : FirstClass");
+                            Menus.ClassChoiceMenu();
                             FlightClass = (FlightClass)UserInput((int)IntOrDouble.integerType, 1, 3);
                             break;
                         case (int)SearchBasedOn.MaxPrice:
