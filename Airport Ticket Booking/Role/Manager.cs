@@ -49,8 +49,6 @@ namespace Airport_Ticket_Booking
             }
         }
 
-        
-
         private void ShowBookingsInput()
         {
             Menus.ShowBookingsInputMenu();
@@ -133,7 +131,7 @@ namespace Airport_Ticket_Booking
 
         }
 
-        
+
 
         private void AddCSVForFlights()
         {
@@ -157,8 +155,6 @@ namespace Airport_Ticket_Booking
                 Console.WriteLine("The Path that you Entered is Not Found!");
             }
         }
-
-        
 
         public static void GetFieldConstraints()
         {

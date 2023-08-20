@@ -54,10 +54,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Booking.cs" />
+    <Compile Include="Booking\Booking.cs" />
     <Compile Include="Commons\Common.cs" />
     <Compile Include="Commons\Menus.cs" />
-    <Compile Include="CSVManager.cs" />
+    <Compile Include="Database\CSVManager.cs" />
     <Compile Include="Flights\FlightFieldConstraintAttribute.cs" />
     <Compile Include="Flights\FlightsManager.cs" />
     <Compile Include="Flights\Flight.cs" />

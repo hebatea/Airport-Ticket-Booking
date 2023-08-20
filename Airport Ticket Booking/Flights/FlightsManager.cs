@@ -26,15 +26,8 @@ namespace Airport_Ticket_Booking
         {
             Flights = new List<Flight>();
             Bookings = new List<Booking>();
-
-            // just for test purpose
         }
 
-        /// <summary>
-        /// Methods as passernger
-        /// </summary>
-        /// <param name="PathFile"></param>
-        /// 
         public void BookFlight(string PassengerName, int FlightId, FlightClass FlightClass)
         {
             Booking Booking = new Booking()
@@ -181,13 +174,6 @@ namespace Airport_Ticket_Booking
             return BookingsBasedOnName;
         }
 
-
-
-        /// <summary>
-        /// Methods as Manager
-        /// </summary>
-        /// <param name="PathFile"></param>
-        /// 
 
         public List<Booking> FilterBookings(string departureCountry = null, string destinationCountry = null,
                 string departureAirport = null, string arrivalAirport = null, DateTime? DepartureDate = null, FlightClass? flightClass = null, double? maxPrice = null,
