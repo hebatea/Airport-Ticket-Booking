@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using static Airport_Ticket_Booking.Common;
 
 namespace Airport_Ticket_Booking
@@ -14,7 +10,7 @@ namespace Airport_Ticket_Booking
     {
         List<Flight> Flights;
         List<Booking> Bookings;
-        CSVManager CSVManager;  // For Further Improvment
+        CSVManager CSVManager; 
         static FlightsManager FlightManager;
 
         public static FlightsManager Instance()
@@ -30,15 +26,8 @@ namespace Airport_Ticket_Booking
         {
             Flights = new List<Flight>();
             Bookings = new List<Booking>();
-           
-            // just for test purpose
         }
 
-        /// <summary>
-        /// Methods as passernger
-        /// </summary>
-        /// <param name="PathFile"></param>
-        /// 
         public void BookFlight(string PassengerName, int FlightId, FlightClass FlightClass)
         {
             Booking Booking = new Booking()
@@ -57,7 +46,8 @@ namespace Airport_Ticket_Booking
             try
             {
                 Flights.Single(f => f.Id == FlightId);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("The Flight Number does not exsit");
                 return false;
@@ -75,17 +65,17 @@ namespace Airport_Ticket_Booking
                     break;
 
                 case 2:
-                    if(isInFlights(newflightId))
+                    if (isInFlights(newflightId))
                         bookedFlight.Flight = Flights.Single(f => f.Id == newflightId);
                     break;
                 case 3:
-                    bookedFlight.FClass = (FlightClass) NewClass;
+                    bookedFlight.FClass = (FlightClass)NewClass;
                     break;
                 case 4:
                     bookedFlight.PassengerName = newPassName;
                     if (isInFlights(newflightId))
                         bookedFlight.Flight = Flights.Single(f => f.Id == newflightId);
-                    bookedFlight.FClass = (FlightClass) NewClass;
+                    bookedFlight.FClass = (FlightClass)NewClass;
                     break;
                 default:
                     break;
@@ -124,18 +114,18 @@ namespace Airport_Ticket_Booking
 
             if (MaxPrice != null)
                 query = query.Where(f => f.Price <= MaxPrice);
-            
+
             return query.ToList();
         }
 
         public void showFlights(List<Flight> QueryFlights)
         {
-            if(QueryFlights.Count == 0)
+            if (QueryFlights.Count == 0)
             {
                 Console.WriteLine("There is Nothing Matched Your Criterias!");
             }
-           
-            foreach(var flight in QueryFlights)
+
+            foreach (var flight in QueryFlights)
             {
                 Console.WriteLine(flight);
             }
@@ -185,15 +175,8 @@ namespace Airport_Ticket_Booking
         }
 
 
-
-        /// <summary>
-        /// Methods as Manager
-        /// </summary>
-        /// <param name="PathFile"></param>
-        /// 
-
         public List<Booking> FilterBookings(string departureCountry = null, string destinationCountry = null,
-                string departureAirport = null, string arrivalAirport = null, DateTime? DepartureDate = null,  FlightClass? flightClass = null, double? maxPrice = null,
+                string departureAirport = null, string arrivalAirport = null, DateTime? DepartureDate = null, FlightClass? flightClass = null, double? maxPrice = null,
                 string code = null, string passengerName = null)
         {
             var filteredBookings = Bookings;
@@ -248,7 +231,7 @@ namespace Airport_Ticket_Booking
                 throw new FileNotFoundException("The file was not found.", FilePath);
             }
 
-            var Include = isHeader? false: true;
+            var Include = isHeader ? false : true;
             List<string> ErrorsExceptionsList = new List<string>();
             string ErrorsMesssage;
             bool ShouldAdded;
@@ -336,7 +319,7 @@ namespace Airport_Ticket_Booking
                         ErrorsMesssage += "Exception message: " + ex.Message + "\n";
                         ShouldAdded = false;
                     }
-                    catch(ArgumentException ex)
+                    catch (ArgumentException ex)
                     {
                         ErrorsMesssage += ex.Message;
                         ShouldAdded = false;
@@ -382,7 +365,7 @@ namespace Airport_Ticket_Booking
                     }
 
 
-                    if(ShouldAdded) 
+                    if (ShouldAdded)
                         Flights.Add(NewFlight);
                     else
                     {
@@ -393,7 +376,7 @@ namespace Airport_Ticket_Booking
                 }
             }
 
-            foreach(var Error in ErrorsExceptionsList)
+            foreach (var Error in ErrorsExceptionsList)
             {
                 Console.WriteLine(Error);
             }
@@ -402,6 +385,6 @@ namespace Airport_Ticket_Booking
 
         }
 
-       
+
     }
 }

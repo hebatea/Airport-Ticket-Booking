@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking
 {
     public class CSVManager
     {
         string FilePath;
-        public CSVManager() {
+        public CSVManager()
+        {
             string currentDirectory = Environment.CurrentDirectory;
             string fileName = "Bookings.csv";
             FilePath = Path.Combine(currentDirectory, fileName);
@@ -27,12 +25,12 @@ namespace Airport_Ticket_Booking
                 {
                     sw.WriteLine("Id,PassengerName,FlightId,FlightClass");
                 }
-                foreach(var BookedFlight in BookedFlights)
+                foreach (var BookedFlight in BookedFlights)
                     sw.WriteLine($"{BookedFlight.Id},{BookedFlight.PassengerName},{BookedFlight.Flight.Code},{BookedFlight.FClass}");
             }
 
         }
 
-      
+
     }
 }

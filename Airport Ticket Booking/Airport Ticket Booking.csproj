@@ -54,19 +54,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Booking.cs" />
-    <Compile Include="Common.cs" />
-    <Compile Include="CSVManager.cs" />
-    <Compile Include="FlightsManager.cs" />
-    <Compile Include="Flight.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Passenger.cs" />
+    <Compile Include="Booking\Booking.cs" />
+    <Compile Include="Commons\Common.cs" />
+    <Compile Include="Commons\Menus.cs" />
+    <Compile Include="Database\CSVManager.cs" />
+    <Compile Include="Flights\FlightFieldConstraintAttribute.cs" />
+    <Compile Include="Flights\FlightsManager.cs" />
+    <Compile Include="Flights\Flight.cs" />
+    <Compile Include="Role\IRole.cs" />
+    <Compile Include="Role\Manager.cs" />
+    <Compile Include="Role\Passenger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role\RoleFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
