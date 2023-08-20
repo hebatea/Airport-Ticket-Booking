@@ -1,30 +1,22 @@
 ﻿using Airport_Ticket_Booking;
 using AutoFixture;
-using System.IO;
-using System;
+using FluentAssertions;
 using Xunit;
 using static Airport_Ticket_Booking.Common;
-using FluentAssertions;
 
 namespace AirportTicketNookingTest
 {
-    public class FlightManagerShould
+    public class BookingShould
     {
         private readonly Fixture _fixture;
         private readonly FlightsManager _flightManager;
 
-        public FlightManagerShould() {
+        public BookingShould()
+        {
             _fixture = new Fixture();
             _flightManager = FlightsManager.Instance();
-            
+
             _flightManager.ReadFromCSV(@"Flights.csv", true);
-        }   
-        
-        private string GiveFullPath(string fileName)
-        {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string fullPath = Path.Combine(basePath, fileName);
-            return fullPath;
         }
 
         [Fact]
@@ -76,9 +68,9 @@ namespace AirportTicketNookingTest
             _flightManager.ModifyBooking(option, bookedFlight.Id, newPassName, newflightId, NewClass);
 
             //Assert
-            if(option == 1 || option == 4) bookedFlight.PassengerName.Should().Be(newPassName);
+            if (option == 1 || option == 4) bookedFlight.PassengerName.Should().Be(newPassName);
             if (option == 2 || option == 4) bookedFlight.Flight.Id.Should().Be(newflightId);
-            if (option == 3 || option == 4) bookedFlight.FClass.Should().Be((FlightClass) NewClass);
+            if (option == 3 || option == 4) bookedFlight.FClass.Should().Be((FlightClass)NewClass);
         }
 
         [Fact]
@@ -107,5 +99,6 @@ namespace AirportTicketNookingTest
             //Assert
             bookedFlights.Should().HaveCount(2);
         }
+
     }
 }

@@ -80,7 +80,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightManagerShould.cs" />
+    <Compile Include="FilterFlightsShould.cs" />
+    <Compile Include="BookingShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
