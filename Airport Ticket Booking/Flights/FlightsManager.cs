@@ -8,10 +8,10 @@ namespace Airport_Ticket_Booking
 {
     public class FlightsManager
     {
-        List<Flight> Flights;
-        List<Booking> Bookings;
-        CSVManager CSVManager; 
-        static FlightsManager FlightManager;
+        private List<Flight> Flights;
+        private List<Booking> Bookings;
+        private CSVManager CSVManager;
+        private static FlightsManager FlightManager;
 
         public static FlightsManager Instance()
         {
@@ -30,6 +30,7 @@ namespace Airport_Ticket_Booking
 
         public void BookFlight(string PassengerName, int FlightId, FlightClass FlightClass)
         {
+            if (!isInFlights(FlightId)) return;
             Booking Booking = new Booking()
             {
                 PassengerName = PassengerName,
@@ -38,6 +39,7 @@ namespace Airport_Ticket_Booking
 
             };
             Bookings.Add(Booking);
+
         }
 
 
@@ -47,7 +49,7 @@ namespace Airport_Ticket_Booking
             {
                 Flights.Single(f => f.Id == FlightId);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("The Flight Number does not exsit");
                 return false;
@@ -155,7 +157,7 @@ namespace Airport_Ticket_Booking
                     $"Flight Id: {b.Flight.Id}, Class (1 - Economy, 2 - Bussiness, 3 - First Class): {b.FClass}");
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
