@@ -93,5 +93,19 @@ namespace AirportTicketNookingTest
             //Assert
             Assert.False(_flightManager.IsThereBookingWithThisId(bookedFlight.Id));
         }
+
+        [Fact]
+        public void ShowAllBookingsBasedOnPassengerName()
+        {
+            // Arrange
+            _flightManager.BookFlight("Heba", 8, FlightClass.Economy);
+            _flightManager.BookFlight("Heba", 11, FlightClass.FirstClass);
+
+            //Act
+            var bookedFlights = _flightManager.ShowBooking("Heba");
+
+            //Assert
+            bookedFlights.Should().HaveCount(2);
+        }
     }
 }
