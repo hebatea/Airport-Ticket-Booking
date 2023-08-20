@@ -81,6 +81,17 @@ namespace AirportTicketNookingTest
             if (option == 3 || option == 4) bookedFlight.FClass.Should().Be((FlightClass) NewClass);
         }
 
-      
+        [Fact]
+        public void CancelBookedFlight()
+        {
+            // Arrange
+            var bookedFlight = _flightManager.BookFlight("Heba", 8, FlightClass.Economy);
+
+            //Act
+            _flightManager.CancelBooking(bookedFlight.Id);
+
+            //Assert
+            Assert.False(_flightManager.IsThereBookingWithThisId(bookedFlight.Id));
+        }
     }
 }
