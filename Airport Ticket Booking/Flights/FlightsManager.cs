@@ -28,9 +28,9 @@ namespace Airport_Ticket_Booking
             Bookings = new List<Booking>();
         }
 
-        public void BookFlight(string PassengerName, int FlightId, FlightClass FlightClass)
+        public Booking BookFlight(string PassengerName, int FlightId, FlightClass FlightClass)
         {
-            if (!isInFlights(FlightId)) return;
+            if (!isInFlights(FlightId)) return null;
             Booking Booking = new Booking()
             {
                 PassengerName = PassengerName,
@@ -39,7 +39,7 @@ namespace Airport_Ticket_Booking
 
             };
             Bookings.Add(Booking);
-
+            return Booking;
         }
 
 
