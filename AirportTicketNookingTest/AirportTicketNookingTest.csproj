@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="FilterFlightsShould.cs" />
     <Compile Include="BookingShould.cs" />
+    <Compile Include="FliterBookingShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
