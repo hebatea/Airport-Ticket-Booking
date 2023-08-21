@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVShould.cs" />
     <Compile Include="FilterFlightsShould.cs" />
     <Compile Include="BookingShould.cs" />
     <Compile Include="FliterBookingShould.cs" />
