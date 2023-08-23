@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airport Ticket Booking", "Airport Ticket Booking\Airport Ticket Booking.csproj", "{B01F904A-E994-4901-99E6-5490BC91B1AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportTicketNookingTest", "AirportTicketNookingTest\AirportTicketNookingTest.csproj", "{88B0B7E5-4C0B-4D33-9DA5-3C40A0DEEDE5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B01F904A-E994-4901-99E6-5490BC91B1AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01F904A-E994-4901-99E6-5490BC91B1AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01F904A-E994-4901-99E6-5490BC91B1AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01F904A-E994-4901-99E6-5490BC91B1AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88B0B7E5-4C0B-4D33-9DA5-3C40A0DEEDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88B0B7E5-4C0B-4D33-9DA5-3C40A0DEEDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88B0B7E5-4C0B-4D33-9DA5-3C40A0DEEDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88B0B7E5-4C0B-4D33-9DA5-3C40A0DEEDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {923EDFB2-2BA3-43A2-9D69-B54B610B99B5}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,16 @@
+Flight Code,Departure Country,Destination Country,Departure Airport,Arrival Airport,Departure Date,Class,Price
+FL001,Palestine,UK,JFK,,2023-08-15,1,800.50
+FL002,Canada,France,YUL,CDG,2023-09-10,Business,1500.75
+FL003,Germany,Italy,FRA,FCO,2023-09-31,Business,600.25
+FL004,Australia,New Zealand,SYD,AKL,2023-08-20,1,450.80
+FL005,Japan,South Korea,HND,ICN,2023-09-05,Business,1200.00
+FL006,Brazil,Argentina,GRU,EZE,2023-08-05,3,2000.50
+FL007,India,Singapore,DEL,SIN,2023-09-25,1,550.00
+FL008,France,Spain,CDG,BCN,2023-08-10,2,1000.75
+FL009,USA,Canada,JFK,YYZ,2023-08-18,1,700.25
+FL010,Italy,Germany,FCO,FRA,2023-09-15,1,580.50
+FL011,South Korea,Japan,ICN,HND,2023-08-27,2,1300.75
+FL012,Argentina,Brazil,EZE,GRU,2023-09-02,3,-2200.80
+FL013,Singapore,India,SIN,DEL,2023-08-08,1,530.00
+FL014,Spain,France,BCN,CDG,2023-09-12,2,980.75
+FL015,Canada,USA,YYZ,JFK,2023-08-25,1,680.25
